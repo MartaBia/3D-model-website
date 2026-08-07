@@ -1,3 +1,5 @@
 {{ define "main" }}
-  <h1>Welcome, this is the main content</h1>
+  <!-- Pulling the title from the index.md file -->
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
 {{ end }}
