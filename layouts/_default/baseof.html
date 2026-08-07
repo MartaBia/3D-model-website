@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+  {{ $options := dict "transpiler" "dartsass" "targetPath" "/assets/css/main.css" "includePaths" (slice "node_modules") }}
+  {{ $stylesheet := resources.Get "css/main.scss" | css.Sass $options | postCSS | minify | fingerprint }}
+  {{ with $stylesheet }}
+    <link rel="stylesheet" href="{{ $stylesheet.RelPermalink }}">
+  {{ end }}
 </head>
 <body>
   {{ partial "header.html" . }}
