@@ -1,2 +1,237 @@
-// pull in the default base styles for all EtC page types
-@import "common";
+// Declare Fractal namespaces for SASS members used in this stylesheet
+@use "vam-fractal/src/components/mixins";
+@use "vam-fractal/src/components/base";
+
+// Pull in Fractal components for SASS selectors used by all EtC page types
+@use "vam-fractal/src/components/services";
+@use "vam-fractal/src/components/units";
+
+// Fractal Blocks
+@use "vam-fractal/src/components/blocks/content-warning/content-warning";
+@use "vam-fractal/src/components/blocks/icon-badge/icon-badge";
+@use "vam-fractal/src/components/blocks/icon-link/icon-link";
+@use "vam-fractal/src/components/blocks/icon-list/icon-list";
+@use "vam-fractal/src/components/blocks/image-carousel/image-carousel";
+@use "vam-fractal/src/components/groups/image-overlay/image-overlay";
+@use "vam-fractal/src/components/groups/image-overlay-details/image-overlay-details";
+@use "vam-fractal/src/components/blocks/image-overlay-license-modal/image-overlay-license-modal";
+@use "vam-fractal/src/components/blocks/modal/modal";
+@use "vam-fractal/src/components/blocks/object-details/object-details";
+@use "vam-fractal/src/components/blocks/object-shuffler/object-shuffler";
+@use "vam-fractal/src/components/blocks/search-form/search-form";
+@use "vam-fractal/src/components/blocks/site-footer/site-footer";
+@use "vam-fractal/src/components/blocks/site-nav/site-nav";
+@use "vam-fractal/src/components/blocks/search-result-auto-suggest/search-result-auto-suggest";
+@use "vam-fractal/src/components/blocks/story-box/story-box";
+@use "vam-fractal/src/components/blocks/newsletter-signup/newsletter-signup";
+
+// Fractal Groups
+@use "vam-fractal/src/components/groups/story-box-container/story-box-container";
+
+// selectors common to all EtC page types
+body {
+  background-image: radial-gradient(circle at 50% 9%, rgba(255, 255, 255, 9%), rgba(29, 30, 32, 9%) 85%, rgba(29, 30, 32, 9%) 105%);
+  background-repeat: no-repeat;
+  background-color: base.sitecolors-siteColor("vam-black");
+  color: base.sitecolors-siteColor("vam-white");
+  position: absolute;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  min-height: -webkit-fill-available; // need to fix mobile modal viewprt size, firefox does not like it
+  width: 100%;
+}
+
+// Files in the vam-fractal site-nav component contain non-standard BEM classes
+/* stylelint-disable selector-class-pattern */
+.b-site-nav__core__overflowitems {
+  background: base.sitecolors-siteColor("vam-grey-1");
+}
+/* stylelint-enable selector-class-pattern */
+
+.etc-template {
+  &__content {
+    background: base.sitecolors-siteColor("vam-grey-1");
+    padding: 60px 20px 30px;
+    position: relative;
+
+    @include mixins.breakpoints-bpMinSmall {
+      padding: 89px 65px 50px;
+    }
+
+    @include mixins.breakpoints-bpMinMedium {
+      margin: auto;
+      max-width: 1200px;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-top: 73px;
+    }
+  }
+
+  &__main {
+    @include mixins.breakpoints-bpMinMedium {
+      display: inline-block;
+
+      &-container-object {
+        width: 57%;
+      }
+    }
+  }
+
+  &__side {
+    box-shadow: 0 0 20px 1px #393b3f;
+    margin-bottom: 32px;
+
+    @include mixins.breakpoints-bpMinSmall {
+      float: right;
+      width: calc(50% - 20px);
+      margin-left: 20px;
+    }
+
+    @include mixins.breakpoints-bpMinMedium {
+      width: 32%;
+
+      &[sticky] {
+        position: sticky;
+        top: -1px;
+      }
+    }
+  }
+
+  &__heading {
+    padding: 120px 20px 30px;
+
+    @include mixins.breakpoints-bpMinSmall {
+      padding-bottom: 40px;
+      padding-left:  60px;
+      padding-right:  60px;
+    }
+
+    @include mixins.breakpoints-bpMinMedium {
+      padding-top: 70px;
+    }
+
+    @include mixins.breakpoints-bpMinLarge {
+      margin: auto;
+      max-width: 1200px;
+      padding-top: 95px;
+    }
+
+    &-main {
+      @include base.typography-typeSetting(5);
+
+      @include mixins.breakpoints-bpMinSmall {
+          @include base.typography-typeSetting(7);
+      }
+
+      @include mixins.breakpoints-bpMinLarge {
+        @include base.typography-typeSetting(8);
+      }
+    }
+
+    &-sub {
+      @include base.typography-typeSetting(3, "light");
+
+      @include mixins.breakpoints-bpMinSmall {
+        @include base.typography-typeSetting(4, "regular");
+      }
+
+      @include mixins.breakpoints-bpMinLarge {
+        @include base.typography-typeSetting(5, "regular");
+      }
+    }
+  }
+
+  &__other-sites {
+    @include base.typography-typeSetting(3);
+
+    border-bottom: 1px solid #505354;
+    margin: 0 10px;
+    padding: 0 0 20px;
+    position: relative;
+    text-align: center;
+
+    &::after {
+      border-bottom: 1px #505354 solid;
+      content: " ";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      margin-top: 55px;
+      width: 100%;
+      z-index: -1;
+    }
+
+    @include mixins.breakpoints-bpMinSmall {
+      border-bottom: 0;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* stylelint-disable declaration-no-important */
+@media print {
+  body,
+  .b-object-details,
+  .b-object-details__row,
+  .b-object-details__title,
+  .b-object-details__cell-name,
+  .b-object-details__controlled-vocab-content,
+  .b-story-box,
+  .object-page__map-card {
+    background: none !important;
+    border-color: #000 !important;
+    color: #000 !important;
+  }
+
+  .etc-template__main {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .object-page__thumbnails,
+  .object-page__thumbnail--hero,
+  .object-page__map-card-img,
+  .object-page__suggest-feedback,
+  .object-page__map-card::after,
+  .object-page__print,
+  .b-object-details__cell-concealer,
+  .b-object-details__cell-revealer,
+  .b-object-details__controlled-vocab::after,
+  .b-object-details__controlled-vocab-container > a::after,
+  .b-story-box-container__reveal-container,
+  .b-object-shuffler,
+  .b-site-footer {
+    display: none !important;
+  }
+
+  .object-page__hero-container {
+    padding-top: 80px !important;
+  }
+
+  .object-page__hero-img {
+    box-shadow: none !important;
+  }
+
+  .etc-template__side {
+    box-shadow: none;
+    float: none !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  .object-page__map-card {
+    max-width: 100% !important;
+  }
+
+  .b-object-details__cell-free-content .b-object-details__cell-free-content--hidden {
+    height: auto !important;
+  }
+}
+/* stylelint-enable declaration-no-important */
