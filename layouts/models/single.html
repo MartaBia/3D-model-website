@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  {{ $model := .Resources.GetMatch .Params.model }}
+  {{ $material := .Resources.GetMatch .Params.material }}
+  {{ if and $model $material }}
+    <div id="viewer" data-model-url="{{ $model.RelPermalink }}" data-material-url="{{ $material.RelPermalink }}"></div>
+  {{ end }}
+{{ end }}
+
+{{ define "head" }}
+  {{ $viewerJS := resources.GetMatch "js/viewer.js" | js.Build }}
+  {{ with $viewerJS }}
+    <script type="module" src="{{ $viewerJS.RelPermalink }}"></script>
+  {{ end }}
+{{ end }}

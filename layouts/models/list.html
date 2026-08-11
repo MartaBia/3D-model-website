@@ -1,0 +1,17 @@
+{{ define "head" }}
+  {{ $options := dict "transpiler" "dartsass" "includePaths" (slice "node_modules") }}
+  {{ $listingStylesheet := resources.Get "css/listing.scss" | css.Sass $options | postCSS | minify | fingerprint }}
+  {{ with $listingStylesheet }}
+    <link rel="stylesheet" href="{{ $listingStylesheet.RelPermalink }}">
+  {{ end }}
+{{ end }}
+
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+
+  <ul class="object-list">
+    {{ range .Pages }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+{{ end }}
