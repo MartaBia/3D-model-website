@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="{{ $stylesheet.RelPermalink }}">
   {{ end }}
 
-  <!-- Difinign another head that will get injected from each different template keep commented for now -->
-  <!-- {{ block "head" . }}{{ end }} -->
+  {{ block "head" . }}{{ end }}
 </head>
 <body>
   {{ partial "header.html" . }}
