@@ -3,4 +3,6 @@ node_modules
 
 /public/
 /resources/_gen/
-.hugo_build.lock
+.hugo_build.loc
+
+/content/models/
