@@ -1,6 +1,6 @@
 {{ define "head" }}
   {{ $options := dict "transpiler" "dartsass" "includePaths" (slice "node_modules") }}
-  {{ $listingStylesheet := resources.Get "css/listing.scss" | css.Sass $options | postCSS | minify | fingerprint }}
+  {{ $listingStylesheet := resources.GetMatch "css/listing.scss" | css.Sass $options | postCSS | minify | fingerprint }}
   {{ with $listingStylesheet }}
     <link rel="stylesheet" href="{{ $listingStylesheet.RelPermalink }}">
   {{ end }}
