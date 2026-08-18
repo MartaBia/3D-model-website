@@ -12,19 +12,19 @@
   <ul class="model-grid">
     {{ range .Pages }}
       <li>
-        <a href="{{ .RelPermalink }}" class="object-card">
-          <div class="object-card__thumb">
+        <a href="{{ .RelPermalink }}" class="model-card">
+          <div class="model-card__thumb">
           {{ with .Params.thumbnail }}
             <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
           {{ else }}
-            <div class="object-card__thumb-placeholder"></div>
+            <div class="model-card__thumb-placeholder"></div>
           {{ end }}
           </div>
 
           <div>
-            <h2 class="object-card__title">{{ .Title }}</h2>
+            <h2 class="model-card__title">{{ .Title }}</h2>
             {{ with .Params.summary }}
-              <p  class="object-card__summary">{{ . }}</p>
+              <p  class="model-card__summary">{{ . }}</p>
             {{ end }}
           </div>
         </a>
