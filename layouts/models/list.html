@@ -7,11 +7,28 @@
 {{ end }}
 
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <h1 class="page-title">{{ .Title }}</h1>
 
-  <ul class="object-list">
+  <ul class="model-grid">
     {{ range .Pages }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      <li>
+        <a href="{{ .RelPermalink }}" class="object-card">
+          <div class="object-card__thumb">
+          {{ with .Params.thumbnail }}
+            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          {{ else }}
+            <div class="object-card__thumb-placeholder"></div>
+          {{ end }}
+          </div>
+
+          <div>
+            <h2 class="object-card__title">{{ .Title }}</h2>
+            {{ with .Params.summary }}
+              <p  class="object-card__summary">{{ . }}</p>
+            {{ end }}
+          </div>
+        </a>
+      </li>
     {{ end }}
   </ul>
 {{ end }}
