@@ -21,6 +21,7 @@
 
   {{ $model := .Resources.GetMatch .Params.model }}
   {{ $material := .Resources.GetMatch .Params.material }}
+  <!-- Consider adding an else for when model or material are not correctly uploaded -->
   {{ if and $model $material }}
     <div class="model-canvas" id="viewer" data-model-url="{{ $model.RelPermalink }}" data-material-url="{{ $material.RelPermalink }}"></div>
   {{ end }}
