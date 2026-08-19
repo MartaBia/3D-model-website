@@ -14,8 +14,8 @@
       <li>
         <a href="{{ .RelPermalink }}" class="model-card">
           <div class="model-card__thumb">
-          {{ with .Params.thumbnail }}
-            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          {{ with .Resources.GetMatch .Params.thumbnail }}
+            <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" loading="lazy">
           {{ else }}
             <div class="model-card__thumb-placeholder"></div>
           {{ end }}
