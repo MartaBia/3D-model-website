@@ -1,17 +1,34 @@
 {{ define "head" }}
   {{ $options := dict "transpiler" "dartsass" "includePaths" (slice "node_modules") }}
-  {{ $listingStylesheet := resources.Get "css/listing.scss" | css.Sass $options | postCSS | minify | fingerprint }}
+  {{ $listingStylesheet := resources.GetMatch "css/listing.scss" | css.Sass $options | postCSS | minify | fingerprint }}
   {{ with $listingStylesheet }}
     <link rel="stylesheet" href="{{ $listingStylesheet.RelPermalink }}">
   {{ end }}
 {{ end }}
 
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <h1 class="page-title">{{ .Title }}</h1>
 
-  <ul class="object-list">
+  <ul class="model-grid">
     {{ range .Pages }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      <li>
+        <a href="{{ .RelPermalink }}" class="model-card">
+          <div class="model-card__thumb">
+          {{ with .Resources.GetMatch .Params.thumbnail }}
+            <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" loading="lazy">
+          {{ else }}
+            <div class="model-card__thumb-placeholder"></div>
+          {{ end }}
+          </div>
+
+          <div>
+            <h2 class="model-card__title">{{ .Title }}</h2>
+            {{ with .Params.summary }}
+              <p  class="model-card__summary">{{ . }}</p>
+            {{ end }}
+          </div>
+        </a>
+      </li>
     {{ end }}
   </ul>
 {{ end }}
